@@ -1,4 +1,4 @@
-package com.example.exam;
+package com.example.exam.Category;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -13,9 +13,7 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 
-import com.example.exam.Category.Category;
-import com.example.exam.Category.CategoryRepository;
-import com.example.exam.Category.GetCategoriesService;
+import com.example.exam.ExamApplicationTests;
 
 @SpringBootTest(classes = ExamApplicationTests.class)
 public class GetCategoriesServiceTests {

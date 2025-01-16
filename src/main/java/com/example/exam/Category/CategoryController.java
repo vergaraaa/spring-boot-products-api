@@ -22,5 +22,4 @@ public class CategoryController {
     public ResponseEntity<List<String>> getCategories() {
         return this.getCategoriesService.execute(null);
     }
-    
 }
