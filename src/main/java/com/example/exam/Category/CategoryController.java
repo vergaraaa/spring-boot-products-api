@@ -12,17 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RestController
 @RequestMapping("categories")
 public class CategoryController {
-    private final CategoryRepository categoryRepository;
+    private final GetCategoriesService getCategoriesService;
 
-    public CategoryController(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
+    public CategoryController(GetCategoriesService getCategoriesService) {
+        this.getCategoriesService = getCategoriesService;
     }
 
     @GetMapping
-    public ResponseEntity<List<Category>> getCategories() {
-        List<Category> categories = this.categoryRepository.findAll();
-
-        return ResponseEntity.ok(categories);
+    public ResponseEntity<List<String>> getCategories() {
+        return this.getCategoriesService.execute(null);
     }
     
 }
