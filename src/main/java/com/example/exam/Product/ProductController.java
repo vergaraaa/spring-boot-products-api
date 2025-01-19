@@ -2,8 +2,6 @@ package com.example.exam.Product;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,20 +12,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RestController
 @RequestMapping("products")
 public class ProductController {
-    private final ProductRepository productRepository;
-
+    private final GetProductService getProductService;
     private final DeleteProductService deleteProductService;
 
-    public ProductController(ProductRepository productRepository, DeleteProductService deleteProductService) {
-        this.productRepository = productRepository;
+    public ProductController(
+        GetProductService getProductService, 
+        DeleteProductService deleteProductService
+    ) {
+        this.getProductService = getProductService;
         this.deleteProductService = deleteProductService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<Product>> getProducts() {
-        List<Product> products = this.productRepository.findAll();
-
-        return ResponseEntity.ok(products);
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable String id) {
+        return this.getProductService.execute(id);
     }
     
     @DeleteMapping("/{id}")
