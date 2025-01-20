@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,7 @@ public class ProductController {
     }
 
     @GetMapping
+    @Cacheable("products")
     public ResponseEntity<List<ProductDTO>> getProducts(
         @RequestHeader(defaultValue = "US") String region,
         @RequestParam(required = false) String category,
