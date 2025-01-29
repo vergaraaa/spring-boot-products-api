@@ -16,9 +16,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Product {
     @Id
     @UuidGenerator
@@ -49,4 +51,13 @@ public class Product {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    public Product(CreateProductDTO createProductDTO) {
+        this.name = createProductDTO.getName();
+        this.description = createProductDTO.getDescription();
+        this.manufacturer = createProductDTO.getManufacturer();
+        this.price = createProductDTO.getPrice();
+        this.category = new Category(createProductDTO.getCategory());
+        this.region = Region.valueOf(createProductDTO.getRegion());
+    }
 }

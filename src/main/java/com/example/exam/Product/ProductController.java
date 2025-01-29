@@ -12,21 +12,27 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping("products")
 public class ProductController {
     private final GetProductService getProductService;
     private final GetProductsService getProductsService;
+    private final CreateProductService createProductService;
     private final DeleteProductService deleteProductService;
 
     public ProductController(
         GetProductService getProductService, 
         GetProductsService getProductsService,
+        CreateProductService createProductService,
         DeleteProductService deleteProductService
     ) {
         this.getProductService = getProductService;
         this.getProductsService = getProductsService;
+        this.createProductService = createProductService;
         this.deleteProductService = deleteProductService;
     }
 
@@ -49,6 +55,11 @@ public class ProductController {
             nameOrDescription, 
             ProductOrderBy.fromValue(orderBy)
         ));
+    }
+    
+    @PostMapping
+    public ResponseEntity<ProductDTO> createProduct(@RequestBody CreateProductDTO createProductDTO) {
+        return createProductService.execute(createProductDTO);
     }
     
     
